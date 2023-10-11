@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body class="text-center">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Best Car Reviews</a>
                 <div class="collapse navbar-collapse" id="navbarText">
@@ -25,7 +25,7 @@
                             <a class="nav-link" href="{% url 'djangoapp:about' %}">About Us</a>
                         </li>
                         <li class="navbar-brand">
-                            <a class="nav-link" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+                            <a class="nav-link" href="#">Contact Us</a>
                         </li>
                     </ul>
                 </div>
@@ -33,16 +33,16 @@
                     {% if user.is_authenticated %}
                     <li>
                         <a class="btn btn-link" href="#">{{user.first_name}}</a>
-                        <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                        <a class="btn btn-link" href="#">Logout</a>
                     </li>
                     {% else %}
-                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                    <form class="form-inline" action="#" method="post">
                         {% csrf_token %}
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Username" name="username">
                             <input type="password" class="form-control" placeholder="Password" name="psw">
                             <button class="btn btn-primary" type="submit">Login</button>
-                            <a class="nav-link" style="font-size:10px" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                            <a class="nav-link" style="font-size:10px" href="#">Sign Up</a>
                         </div>
                     </form>
                     {% endif %}
