@@ -32,7 +32,7 @@
                 <div class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
                     <li>
-                        <a class="btn btn-link" href="#">{{user.first_name}}</a>
+                        <a class="btn btn-link" href="#">{{user.username}}</a>
                         <a class="btn btn-link" href="#">Logout</a>
                     </li>
                     {% else %}
