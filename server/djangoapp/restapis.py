@@ -65,13 +65,10 @@ def get_dealers_from_cf(url):
 def get_dealer_by_id(url):
     # Call get_request with the dealer_id param
     json_result = get_request(url)
-
     # Create a CarDealer object from response
-    dealer = json_result
-    dealer_obj = CarDealer(address=dealer["address"], city=dealer["city"], full_name=dealer["full_name"],
-                           id=dealer["id"], lat=dealer["lat"], long=dealer["long"],
-                           short_name=dealer["short_name"],
-                           st=dealer["st"], state=dealer["state"], zip=dealer["zip"])
+
+    for dealer in json_result:
+        dealer_obj = CarDealer(address=dealer["address"], city=dealer["city"], full_name=dealer["full_name"], id=dealer["id"], lat=dealer["lat"], lon=dealer["long"], short_name=dealer["short_name"],st=dealer["st"], state=dealer["state"], zip=dealer["zip"])
 
     return dealer_obj
 

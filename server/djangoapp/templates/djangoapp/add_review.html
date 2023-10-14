@@ -7,7 +7,7 @@
         <h4><i>for {{dealer.full_name}}</i></h4>
         <br>
         <!--review form -->
-        <form action="/djangoapp/dealer/{{dealer.id}}/add-review/" method="post">
+        <form action="/djangoapp/dealer/add-review/{{dealer.id}}/" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="content"><b>Enter the review content:</b></label>
@@ -21,7 +21,7 @@
                 <label for="car">Select your car:</label>
                 <select name="car" id="car" class="form-select">
                     {% for car in cars %}
-                        <option selected value={{car.id}}>{{car.car_make.name}} {{car.name}} {{ car.year }}</option>
+                        <option selected value="{{car.id}}">{{car.car_make}} {{car.name}} {{ car.model_year }}</option>
                     {% endfor %}
                 </select>
             </div>
