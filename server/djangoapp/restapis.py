@@ -12,20 +12,12 @@ from ibm_watson.natural_language_understanding_v1 import Features, SentimentOpti
 # Function for making HTTP GET requests
 def get_request(url, api_key=False, **kwargs):
     print(f"GET from {url}")
-    if api_key:
-        # Basic authentication GET
-        try:
-            response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs, auth=HTTPBasicAuth('apikey', api_key))
-        except:
-            print("An error occurred while making GET request. ")
-    else:
         # No authentication GET
-        try:
-            response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs)
-        except:
-            print("An error occurred while making GET request. ")
+    try:
+        response = requests.get(url, headers={'Content-Type': 'application/json'},
+                   params=kwargs)
+    except:
+        print("An error occurred while making GET request. ")
 
     # Retrieving the response status code and content
     status_code = response.status_code
@@ -36,10 +28,10 @@ def get_request(url, api_key=False, **kwargs):
 
 
 # Function for making HTTP POST requests
-def post_request(url, json_payload, **kwargs):
+def post_request(url, json_payload):
     print(f"POST to {url}")
     try:
-        response = requests.post(url, params=kwargs, json=json_payload)
+        response = requests.post(url, json=json_payload)
     except:
         print("An error occurred while making POST request. ")
     status_code = response.status_code
@@ -70,12 +62,12 @@ def get_dealers_from_cf(url):
 
 # Gets a single dealer from the Cloudant DB with the Cloud Function get-dealerships
 # Requires the dealer_id parameter with only a single value
-def get_dealer_by_id(url, dealer_id):
+def get_dealer_by_id(url):
     # Call get_request with the dealer_id param
-    json_result = get_request(url, dealerId=dealer_id)
+    json_result = get_request(url)
 
     # Create a CarDealer object from response
-    dealer = json_result["entries"][0]
+    dealer = json_result
     dealer_obj = CarDealer(address=dealer["address"], city=dealer["city"], full_name=dealer["full_name"],
                            id=dealer["id"], lat=dealer["lat"], long=dealer["long"],
                            short_name=dealer["short_name"],
@@ -104,14 +96,14 @@ def get_dealers_by_state(url, state):
 
 # Gets all dealer reviews for a specified dealer from the Cloudant DB
 # Uses the Cloud Function get_reviews
-def get_dealer_reviews_from_cf(url, dealer_id):
+def get_dealer_reviews_from_cf(url):
     results = []
     # Perform a GET request with the specified dealer id
-    json_result = get_request(url, dealerId=dealer_id)
+    json_result = get_request(url)
 
     if json_result:
         # Get all review data from the response
-        reviews = json_result["body"]["data"]["docs"]
+        reviews = json_result
         # For every review in the response
         for review in reviews:
             # Create a DealerReview object from the data
